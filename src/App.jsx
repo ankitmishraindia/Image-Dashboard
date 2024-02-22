@@ -14,7 +14,6 @@ import img8 from './assets/008.png';
 import RemoveImage from "./components/RemoveImage";
 import ThemeChanger from "./components/ThemeChanger";
 
-
 function App() {
    const [layout,setLayout]=useState([])
 
@@ -24,6 +23,22 @@ function App() {
    function addImageLayout(){
     setLayout([img1,img2,img3,img4,img5,img6,img7,img8])
    }
+
+   //handge image drag starting
+   function handleDragStart(e,index){
+     e.dataTransfer.setData("index",index.toString())
+   }
+
+   //handle image dropping
+   function handleDrop(e,newIndex){
+      const oldIndex=parseInt(e.dataTransfer.getData('index'))
+      const newLayout=[...layout]
+      const [draggedElement]=newLayout.splice(oldIndex,1)
+      console.log(draggedElement)
+      newLayout.splice(newIndex,0,draggedElement)
+      setLayout(newLayout)
+   }
+
   return (
     <MyContext.Provider value={{layout,setLayout}}>
     <div className="w-full h-screen bg-gray-400 flex">
@@ -43,14 +58,20 @@ function App() {
             <hr className="w-full"/>
            <RemoveImage/>
            
-            <ThemeChanger  setBgColor={setBgColor}/>
+            <ThemeChanger setBgColor={setBgColor}/>
             <hr />
             <p>Save To LocalStorage:</p>
             <button className="bg-blue-500 text-white font-semibold w-full py-1 rounded-md hover:bg-blue-600">Save</button>
         </div>
         {/* ***********mainbar********** */}
         <div  className={`p-2 w-full flex flex-wrap gap-1 ml-[300px]`} style={{ backgroundColor: bgColor }}>
-          {layout&&layout.map((item,index)=>(<img key={index} src={item} className={index===0||index===layout.length-1?'w-[99%] h-[19%] m-[0_auto]':'w-[49%] h-[19%] m-[0_auto]'}/>))}
+          {layout&&layout.map((item,index)=>(<img key={index} 
+                                              src={item} 
+                                              draggable='true'
+                                              onDragStart={e=>handleDragStart(e,index)}
+                                              onDragOver={e=>e.preventDefault()}
+                                              onDrop={e=>handleDrop(e,index)}
+                                              className={index===0||index===layout.length-1?'w-[99%] h-[19%] m-[0_auto]':'w-[49%] h-[19%] m-[0_auto]'}/>))}
         </div>
     </div>
     </MyContext.Provider>
