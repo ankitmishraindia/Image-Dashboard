@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import MyContext from "./Context/Mycontext"
 
 import { MdAddToQueue } from "react-icons/md";
@@ -19,6 +19,13 @@ function App() {
 
    const [bgColor,setBgColor]=useState('')
 
+   //Saving to localstorage
+   function localSaving(){
+     localStorage.setItem('Layout',JSON.stringify(layout))
+     localStorage.setItem('ChangedBgColor',bgColor)
+     console.log(localStorage)
+   }
+
    //add image Layout
    function addImageLayout(){
     setLayout([img1,img2,img3,img4,img5,img6,img7,img8])
@@ -38,6 +45,16 @@ function App() {
       newLayout.splice(newIndex,0,draggedElement)
       setLayout(newLayout)
    }
+
+   //rendering saved data from localstorage
+   useEffect(()=>{
+     const savedLayout=JSON.parse(localStorage.getItem("Layout"))
+     const savedBgColor=localStorage.getItem("ChangedBgColor")
+     if(savedLayout&&savedBgColor){
+      setLayout(savedLayout)
+      setBgColor(savedBgColor)
+     }
+   },[])
 
   return (
     <MyContext.Provider value={{layout,setLayout}}>
@@ -60,8 +77,12 @@ function App() {
            
             <ThemeChanger setBgColor={setBgColor}/>
             <hr />
-            <p>Save To LocalStorage:</p>
-            <button className="bg-blue-500 text-white font-semibold w-full py-1 rounded-md hover:bg-blue-600">Save</button>
+            {layout.length>0&&<div>
+              <p>Save To LocalStorage:</p>
+            <button onClick={localSaving} className="bg-blue-500 text-white font-semibold w-full py-1 rounded-md hover:bg-blue-600">Save</button>
+            </div>}
+           
+            
         </div>
         {/* ***********mainbar********** */}
         <div  className={`p-2 w-full flex flex-wrap gap-1 ml-[300px]`} style={{ backgroundColor: bgColor }}>
