@@ -12,36 +12,18 @@ import img6 from './assets/006.png';
 import img7 from './assets/007.png';
 import img8 from './assets/008.png';
 import RemoveImage from "./components/RemoveImage";
+import ThemeChanger from "./components/ThemeChanger";
 
 
 function App() {
    const [layout,setLayout]=useState([])
 
-   const [themeColor,setThemeColor]=useState('')
    const [bgColor,setBgColor]=useState('')
 
    //add image Layout
    function addImageLayout(){
     setLayout([img1,img2,img3,img4,img5,img6,img7,img8])
    }
-
-   //input theme color code
-   function colorCodechange(e){
-     e.preventDefault();
-    const value=e.target.value;
-    setThemeColor(value)
-   }
-
-   //apply color to div
-   function applyColor(){
-    let newbgColor=`#${themeColor}`
-    setBgColor(newbgColor)
-    console.log(newbgColor)
-   }
-
-   const main=document.getElementById('main');
-   console.log(main)
-
   return (
     <MyContext.Provider value={{layout,setLayout}}>
     <div className="w-full h-screen bg-gray-400 flex">
@@ -61,18 +43,13 @@ function App() {
             <hr className="w-full"/>
            <RemoveImage/>
            
-            <div className="overflow-hidden space-y-2">
-                <p>Change Theme-color:</p>
-                <label htmlFor="themeColor" className="font-semibold">Color-Code (eg:00ffcc(0-9,A-F))</label>
-                <input value={themeColor} onChange={colorCodechange} type="text" minLength='6' maxLength={6} width='90%' name="" id="themeColor" className=" text-black border-2 px-2 py-1 rounded-md"  placeholder="00ffcc"/>
-                <button onClick={applyColor} className="px-3 bg-gray-400 text-white hover:bg-gray-500 block rounded-md">OK</button>
-            </div>
+            <ThemeChanger  setBgColor={setBgColor}/>
             <hr />
             <p>Save To LocalStorage:</p>
             <button className="bg-blue-500 text-white font-semibold w-full py-1 rounded-md hover:bg-blue-600">Save</button>
         </div>
         {/* ***********mainbar********** */}
-        <div id="main" className={`p-2 bg-[#${bgColor}] w-full flex flex-wrap gap-1 ml-[300px]`}>
+        <div  className={`p-2 w-full flex flex-wrap gap-1 ml-[300px]`} style={{ backgroundColor: bgColor }}>
           {layout&&layout.map((item,index)=>(<img key={index} src={item} className={index===0||index===layout.length-1?'w-[99%] h-[19%] m-[0_auto]':'w-[49%] h-[19%] m-[0_auto]'}/>))}
         </div>
     </div>
