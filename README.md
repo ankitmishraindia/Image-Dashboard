@@ -30,22 +30,20 @@ The Image Dashboard App is a web application that allows users to create, custom
 
 2. Navigate to the project directory:
 
-  ```bash
-
-  cd image-dashboard-app
+   ```bash
+   cd image-dashboard-app
 
 3. Install dependencies:
 
-  ```bash
-
+   ```bash
    npm install
 
 ## Usage
   
 1. Start the development server:
 
-  ```bash
-  npm run dev
+   ```bash
+   npm run dev
 
 2. Open your web browser and go to http://localhost:5173.
 
