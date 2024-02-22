@@ -66,7 +66,7 @@ function App() {
   return (
     <MyContext.Provider value={{layout,setLayout}}>
     <div className="w-full h-screen bg-gray-400 flex">
-      {showSidebar&&<MdMenu onClick={()=>toggleSidebar()} className="fixed hover:bg-gray-100 cursor-pointer top-2 left-2 text-black bg-white rounded-md px-2 py-1" size={33}/>}
+      {!showSidebar&&<MdMenu onClick={()=>toggleSidebar()} className="fixed hover:bg-gray-100 cursor-pointer top-2 left-2 text-black bg-white rounded-md px-2 py-1" size={33}/>}
 
       {/* Close button */}
       {showSidebar && (
