@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import MyContext from "./Context/Mycontext"
+import { MdAddToQueue, MdMenu, MdClose } from "react-icons/md"; // Import menu icon
 
-import { MdAddToQueue } from "react-icons/md";
 
 import img1 from './assets/001.png';
 import img2 from './assets/002.png';
@@ -18,6 +18,8 @@ function App() {
    const [layout,setLayout]=useState([])
 
    const [bgColor,setBgColor]=useState('')
+   const [showSidebar, setShowSidebar] = useState(false); // State variable to track sidebar visibility
+
 
    //Saving to localstorage
    function localSaving(){
@@ -46,6 +48,11 @@ function App() {
       setLayout(newLayout)
    }
 
+   // Function to toggle sidebar visibility
+   const toggleSidebar = () => {
+    setShowSidebar(!showSidebar);
+ };
+
    //rendering saved data from localstorage
    useEffect(()=>{
      const savedLayout=JSON.parse(localStorage.getItem("Layout"))
@@ -59,9 +66,15 @@ function App() {
   return (
     <MyContext.Provider value={{layout,setLayout}}>
     <div className="w-full h-screen bg-gray-400 flex">
+      {setShowSidebar&&<MdMenu onClick={()=>toggleSidebar()} className="fixed hover:bg-gray-100 cursor-pointer top-2 left-2 text-black bg-white rounded-md px-2 py-1" size={33}/>}
+
+      {/* Close button */}
+      {showSidebar && (
+        <MdClose onClick={toggleSidebar} className="fixed hover:bg-gray-100 cursor-pointer top-2 right-2 text-black bg-white rounded-md px-2 py-1 z-20" size={33}/>
+      )}
       {/* Sidebar*********** */}
-    <div className="h-full w-[300px] py-5 px-4 bg-white space-y-3  fixed left-0">
-            <h1 className="text-2xl font-semibold italic">IMAGE DASHBOARD</h1>
+    <div className={`h-full sm:w-[23%] py-5 px-1 md:px-4 bg-white space-y-3 fixed z-10 left-0 transition-transform transform ${showSidebar ? '' : '-translate-x-full sm:translate-x-0'}`}>
+            <h1 className="text-xl md:text-2xl text-center font-semibold italic">IMAGE DASHBOARD</h1>
             {layout.length===0?
             (<div>
                 <p>Add Layout with Images:</p>
@@ -85,7 +98,7 @@ function App() {
             
         </div>
         {/* ***********mainbar********** */}
-        <div  className={`p-2 w-full flex flex-wrap gap-1 ml-[300px]`} style={{ backgroundColor: bgColor }}>
+        <div  className={`p-2 w-full flex flex-wrap gap-1 sm:ml-[23%]`} style={{ backgroundColor: bgColor }}>
           {layout&&layout.map((item,index)=>(<img key={index} 
                                               src={item} 
                                               draggable='true'

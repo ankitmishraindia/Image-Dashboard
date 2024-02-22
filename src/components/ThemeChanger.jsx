@@ -31,8 +31,8 @@ function ThemeChanger({setBgColor}){
     return(
         <div className="overflow-hidden space-y-2">
         <p>Change Theme-color:</p>
-        <label htmlFor="themeColor" className="font-semibold">Color-Code (eg:00ffcc(0-9,A-F))</label>
-        <input value={themeColor} onChange={colorCodechange} type="text" minLength='6' maxLength={6} width='90%' name="" id="themeColor" className=" text-black border-2 px-2 py-1 rounded-md"  placeholder="00ffcc"/>
+        <label htmlFor="themeColor" className="font-semibold hidden md:flex">Color-Code (eg:00ffcc(0-9,A-F))</label>
+        <input value={themeColor} onChange={colorCodechange} type="text" minLength='6' maxLength={6} width='90%' name="" id="themeColor" className=" text-black w-[80%] sm:w-full border-2 px-2 py-1 rounded-md"  placeholder="00ffcc"/>
         {error&&<p className='text-red-500'>Invalid Color Code</p>}
         <button onClick={applyColor} className="px-3 bg-gray-500 text-white hover:bg-gray-400 block rounded-md">OK</button>
         
