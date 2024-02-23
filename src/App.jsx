@@ -76,8 +76,8 @@ function App() {
       )}
       
       {/* ***************Sidebar*********** */}
-    <div className={`h-full overflow-y-auto w-[27%] sm:w-[23%] py-5 px-1 md:px-4 bg-white space-y-3 fixed z-10 left-0 ease-linear duration-500 transition-transform transform ${showSidebar ? '' : '-translate-x-full sm:translate-x-0'}`}>
-            <h1 className="text-xl md:text-2xl text-center font-semibold italic">IMAGE DASHBOARD</h1>
+    <div className={`h-full overflow-y-auto w-[35%] sm:w-[23%] py-5 px-1 md:px-4 bg-white space-y-3 fixed z-10 left-0 ease-linear duration-500 transition-transform transform ${showSidebar ? '' : '-translate-x-full sm:translate-x-0'}`}>
+            <h1 className="text-md sm:text-xl md:text-2xl text-center font-semibold italic">IMAGE DASHBOARD</h1>
             {layout.length===0?
             (<div>
                 <hr/>
