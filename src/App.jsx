@@ -66,17 +66,21 @@ function App() {
   return (
     <MyContext.Provider value={{layout,setLayout}}>
     <div className="w-full h-screen bg-gray-400 flex">
+
+      {/* Menu button */}
       {!showSidebar&&<MdMenu onClick={()=>toggleSidebar()} className="fixed hover:bg-gray-100 cursor-pointer top-2 left-2 text-black bg-white rounded-md px-2 py-1" size={33}/>}
 
       {/* Close button */}
       {showSidebar && (
         <MdClose onClick={toggleSidebar} className="fixed hover:bg-gray-100 cursor-pointer top-2 right-2 text-black bg-white rounded-md px-2 py-1 z-20" size={33}/>
       )}
-      {/* Sidebar*********** */}
-    <div className={`h-full overscroll-y-auto sm:w-[23%] py-5 px-1 md:px-4 bg-white space-y-3 fixed z-10 left-0 transition-transform transform ${showSidebar ? '' : '-translate-x-full sm:translate-x-0'}`}>
+      
+      {/* ***************Sidebar*********** */}
+    <div className={`h-full overflow-y-auto w-[27%] sm:w-[23%] py-5 px-1 md:px-4 bg-white space-y-3 fixed z-10 left-0 ease-linear duration-500 transition-transform transform ${showSidebar ? '' : '-translate-x-full sm:translate-x-0'}`}>
             <h1 className="text-xl md:text-2xl text-center font-semibold italic">IMAGE DASHBOARD</h1>
             {layout.length===0?
             (<div>
+                <hr/>
                 <p>Add Layout with Images:</p>
                 <button onClick={addImageLayout}  className="flex font-semibold items-center w-full justify-between">Add Layout
                 <MdAddToQueue className="hover:bg-gray-200 px-2 py-1 rounded-md" size={33}/>
@@ -86,8 +90,10 @@ function App() {
             }
             
             <hr className="w-full"/>
+            {/* ****remove image component */}
            <RemoveImage/>
            
+           {/* ******change theme color component */}
             <ThemeChanger setBgColor={setBgColor}/>
             <hr />
             {layout.length>0&&<div>

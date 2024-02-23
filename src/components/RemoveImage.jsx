@@ -18,6 +18,9 @@ function RemoveImage(){
            
                 
                 {layout.length>0&&(<div>
+                    <p>Move Images:</p>
+                    <p className="font-semibold">Pick a image and move by drag and drop action.</p>
+                    <hr />
                     <p>Remove Image:</p>
                    {layout.map((_,index)=><button onClick={()=>removeImage(index)} key={index} className="flex font-semibold items-center w-full justify-between">Image {index+1}
                     <IoMdRemoveCircle className="hover:bg-gray-200 px-2 py-1 rounded-md text-red-500" size={33}/>
